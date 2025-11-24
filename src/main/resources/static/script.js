@@ -2,7 +2,7 @@ const BASE_URL = 'http://localhost:8080/api';
 
 const form = document.getElementById('main-form');
 const deleteForm = document.getElementById('delete-form');
-const updateForm = document.getElementById('update-form');
+const updateFormEl = document.getElementById('update-form');
 const statusMessage = document.getElementById('status-message');
 const resultsList = document.getElementById('results-list');
 
@@ -19,12 +19,27 @@ function showStatus(message, isError) {
 function updateForm() {
     const entity = document.getElementById('entity-select').value;
 
-    document.getElementById('rg').style.display = entity === 'hospedes' ? 'block' : 'none';
-    document.querySelector('.toggle').style.display = entity === 'hospedes' ? 'flex' : 'none';
-    document.getElementById('funcionario-fields').style.display = entity === 'funcionarios' ? 'block' : 'none';
+    const rgField = document.getElementById('rg');
+    const fidelidadeToggle = document.querySelector('#main-form .toggle');
+    const funcaoFields = document.getElementById('funcionario-fields');
+
+    if (entity === 'hospedes') {
+        rgField.style.display = 'block';
+        fidelidadeToggle.style.display = 'flex';
+        funcaoFields.style.display = 'none';
+    } else {
+        rgField.style.display = 'none';
+        fidelidadeToggle.style.display = 'none';
+        funcaoFields.style.display = 'block';
+    }
 }
 
 document.addEventListener('DOMContentLoaded', updateForm);
+
+async function handleResponse(response) {
+    const data = await response.json();
+    showStatus(data.message, !response.ok);
+}
 
 form.addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -35,7 +50,7 @@ form.addEventListener('submit', async function(event) {
     const data = {
         cpf: document.getElementById('cpf').value,
         nome: document.getElementById('nome').value,
-        idade: parseInt(document.getElementById('idade').value),
+        idade: parseInt(document.getElementById('idade').value)
     };
 
     if (entity === 'hospedes') {
@@ -57,7 +72,7 @@ form.addEventListener('submit', async function(event) {
 
 async function listar(entity) {
     const url = `${BASE_URL}/${entity}`;
-    resultsList.innerHTML = `<li>Carregando...</li>`;
+    resultsList.innerHTML = `<li>Carregando ${entity}...</li>`;
 
     const response = await fetch(url);
 
@@ -113,7 +128,7 @@ deleteForm.addEventListener('submit', async function(event) {
     listar(entity);
 });
 
-updateForm.addEventListener('submit', async function(event) {
+updateFormEl.addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const entity = document.getElementById('update-entity-select').value;
@@ -121,7 +136,7 @@ updateForm.addEventListener('submit', async function(event) {
 
     const data = {
         nome: document.getElementById('update-nome').value,
-        idade: parseInt(document.getElementById('update-idade').value),
+        idade: parseInt(document.getElementById('update-idade').value)
     };
 
     if (entity === 'hospedes') {
@@ -140,8 +155,3 @@ updateForm.addEventListener('submit', async function(event) {
     await handleResponse(response);
     listar(entity);
 });
-
-async function handleResponse(response) {
-    const data = await response.json();
-    showStatus(data.message, !response.ok);
-}
