@@ -1,17 +1,30 @@
 package com.seuprojeto.hotel.hotel_api.service;
 
+import com.seuprojeto.hotel.hotel_api.dto.FuncionarioDTO;
 import com.seuprojeto.hotel.hotel_api.model.Funcionario;
 import com.seuprojeto.hotel.hotel_api.repository.FuncionarioRepository;
-import org.springframework.stereotype.Service; // Importar
+import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 import java.util.List;
 
-@Service // ADICIONADO: Spring gerencia esta classe
+@Service
 public class FuncionarioService {
 
     private final FuncionarioRepository repository = new FuncionarioRepository();
 
-    public String inserir(Funcionario novoFuncionario) {
+    public Funcionario fromDTO(FuncionarioDTO dto) {
+        Funcionario f = new Funcionario();
+        f.setCpf(dto.getCpf());
+        f.setNome(dto.getNome());
+        f.setIdade(dto.getIdade());
+        f.setFuncao(dto.getCargo());
+        return f;
+    }
+
+    public String inserir(FuncionarioDTO dto) {
+        Funcionario novoFuncionario = fromDTO(dto);
+
         if (novoFuncionario.getIdade() < 16) {
             return "Erro: Funcionários devem ter no mínimo 16 anos.";
         }
@@ -20,8 +33,10 @@ public class FuncionarioService {
             if (repository.findByCpf(novoFuncionario.getCpf()) != null) {
                 return "Erro: Já existe um funcionário com este CPF.";
             }
+
             repository.inserir(novoFuncionario);
             return "Funcionário inserido com sucesso!";
+
         } catch (SQLException e) {
             return "Erro ao acessar o banco de dados: " + e.getMessage();
         }
@@ -31,7 +46,6 @@ public class FuncionarioService {
         try {
             return repository.findAll();
         } catch (SQLException e) {
-            System.err.println("Erro ao listar funcionários: " + e.getMessage());
             return List.of();
         }
     }
@@ -40,18 +54,19 @@ public class FuncionarioService {
         try {
             return repository.findByCpf(cpf);
         } catch (SQLException e) {
-            System.err.println("Erro ao consultar funcionário (Objeto): " + e.getMessage());
             return null;
         }
     }
 
-    public String atualizar(String cpf, Funcionario dadosAtualizados) {
+    public String atualizar(String cpf, FuncionarioDTO dto) {
         try {
-            dadosAtualizados.setCpf(cpf);
-            if (repository.atualizar(dadosAtualizados)) {
+            Funcionario atualizado = fromDTO(dto);
+            atualizado.setCpf(cpf);
+
+            if (repository.atualizar(atualizado)) {
                 return "Funcionário atualizado com sucesso!";
             } else {
-                return "Erro: Funcionário com CPF " + cpf + " não encontrado para atualização.";
+                return "Erro: Funcionário não encontrado.";
             }
         } catch (SQLException e) {
             return "Erro ao atualizar funcionário: " + e.getMessage();
@@ -63,7 +78,7 @@ public class FuncionarioService {
             if (repository.excluir(cpf)) {
                 return "Funcionário excluído com sucesso!";
             } else {
-                return "Erro: Funcionário com CPF " + cpf + " não encontrado para exclusão.";
+                return "Erro: Funcionário não encontrado.";
             }
         } catch (SQLException e) {
             return "Erro ao excluir funcionário: " + e.getMessage();

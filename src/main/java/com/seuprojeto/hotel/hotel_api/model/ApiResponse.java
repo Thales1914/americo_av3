@@ -3,6 +3,8 @@ package com.seuprojeto.hotel.hotel_api.model;
 public class ApiResponse {
     private String message;
 
+    public ApiResponse() {}
+
     public ApiResponse(String message) {
         this.message = message;
     }

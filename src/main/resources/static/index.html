@@ -3,31 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Sistema Hotel</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; }
-        .container { max-width: 1000px; margin: auto; display: flex; gap: 20px; }
-        .panel { flex: 1; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h3 { border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-top: 0; }
-        input, button, select { padding: 10px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ddd; width: 100%; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; cursor: pointer; border: none; }
-        button:hover { background-color: #0056b3; }
-        ul { list-style: none; padding: 0; }
-        li { padding: 8px 0; border-bottom: 1px dotted #eee; }
-        .status-message { margin-bottom: 15px; padding: 10px; border-radius: 4px; font-weight: bold; }
-        .success { background-color: #d4edda; color: #155724; }
-        .error { background-color: #f8d7da; color: #721c24; }
-        .two-cols { display: flex; gap: 10px; }
-        .two-cols > * { flex: 1; }
-    </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
 <h1>Sistema Hotel</h1>
-<p>O Back-End está rodando em: <a href="http://localhost:8080/api/hospedes" target="_blank">http://localhost:8080</a></p>
+<p>Back-End rodando em: <a href="http://localhost:8080/api/hospedes" target="_blank">http://localhost:8080</a></p>
 
 <div class="container">
-    <div class="panel" style="flex: 1.5;">
-        <h3>1. Cadastro (POST)</h3>
-        <div id="status-message" class="status-message" style="display: none;"></div>
+
+    <div class="panel">
+        <h3>Cadastro de Usuários</h3>
+
+        <div id="status-message" class="status-message"></div>
 
         <select id="entity-select" onchange="updateForm()">
             <option value="hospedes">Hóspede</option>
@@ -35,16 +26,17 @@
         </select>
 
         <form id="main-form">
+
             <input type="text" id="cpf" placeholder="CPF" required>
             <input type="text" id="nome" placeholder="Nome" required>
             <input type="number" id="idade" placeholder="Idade" required>
+            <input type="text" id="rg" placeholder="RG">
 
-            <div id="hospede-fields">
-                <input type="text" id="rg" placeholder="RG">
-                <label style="display: block; margin-bottom: 10px;">
-                    <input type="checkbox" id="fidelidade"> Cliente Fidelidade
-                </label>
-            </div>
+            <label class="toggle">
+                <input type="checkbox" id="fidelidade">
+                <span class="slider"></span>
+                Cliente Fidelidade
+            </label>
 
             <div id="funcionario-fields" style="display: none;">
                 <input type="text" id="funcao" placeholder="Função">
@@ -54,27 +46,54 @@
         </form>
     </div>
 
-    <div class="panel" style="flex: 1;">
-        <h3>2. Listar e Excluir</h3>
+    <div class="panel">
+        <h3>Listar e Excluir</h3>
+
         <div class="two-cols">
             <button onclick="listar('hospedes')">Listar Hóspedes</button>
             <button onclick="listar('funcionarios')">Listar Funcionários</button>
         </div>
 
-        <form id="delete-form" style="margin-top: 15px;">
+        <form id="delete-form">
             <select id="delete-entity-select">
                 <option value="hospedes">Hóspede</option>
                 <option value="funcionarios">Funcionário</option>
             </select>
-            <input type="text" id="delete-cpf" placeholder="CPF para Excluir" required>
+
+            <input type="text" id="delete-cpf" placeholder="CPF para excluir" required>
             <button type="submit">Excluir</button>
         </form>
 
-        <h4 style="margin-top: 20px;">Resultados:</h4>
-        <ul id="results-list">
-            <li>Use os botões para listar dados.</li>
-        </ul>
+        <h4>Resultados:</h4>
+        <ul id="results-list"></ul>
+
+        <br><hr><br>
+
+        <h3>Atualizar Registro</h3>
+
+        <form id="update-form">
+            <select id="update-entity-select">
+                <option value="hospedes">Hóspede</option>
+                <option value="funcionarios">Funcionário</option>
+            </select>
+
+            <input type="text" id="update-cpf" placeholder="CPF a ser atualizado" required>
+            <input type="text" id="update-nome" placeholder="Novo Nome">
+            <input type="number" id="update-idade" placeholder="Nova Idade">
+            <input type="text" id="update-rg" placeholder="Novo RG">
+
+            <label class="toggle">
+                <input type="checkbox" id="update-fidelidade">
+                <span class="slider"></span>
+                Cliente Fidelidade
+            </label>
+
+            <input type="text" id="update-funcao" placeholder="Nova Função">
+
+            <button type="submit">Atualizar</button>
+        </form>
     </div>
+
 </div>
 
 <script src="script.js"></script>

@@ -1,7 +1,10 @@
 package com.seuprojeto.hotel.hotel_api.model;
 
 public class Funcionario extends Pessoa {
+
     private String funcao;
+
+    public Funcionario() {}
 
     public Funcionario(String cpf, String nome, int idade, String funcao) {
         super(cpf, nome, idade);
@@ -13,6 +16,7 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String toString() {
-        return String.format("CPF: %s, Nome: %s, Idade: %d, Função: %s", getCpf(), getNome(), getIdade(), getFuncao());
+        return String.format("CPF: %s, Nome: %s, Idade: %d, Função: %s",
+                getCpf(), getNome(), getIdade(), funcao);
     }
 }
