@@ -1,8 +1,5 @@
 Sistema de Hotel — Gestão Completa com Java, Spring Boot e PostgreSQL
 
-Este projeto é um Sistema de Gestão Hoteleira, desenvolvido inicialmente como trabalho acadêmico e evoluído para fins de portfólio.
-A aplicação integra:
-
 Backend com Java + Spring Boot
 
 Banco PostgreSQL acessado via JDBC
