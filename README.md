@@ -1,257 +1,255 @@
-Sistema de Hotel — Gestão Completa com Java, Spring Boot e PostgreSQL
+# Sistema de Hotel — Gestão Completa com Java, Spring Boot e JDBC
 
-Backend com Java + Spring Boot
+Este projeto consiste no desenvolvimento de um Sistema de Gestão Hoteleira.  
+A aplicação integra backend em Java/Spring Boot, banco PostgreSQL via JDBC e frontend interativo com HTML, CSS e JavaScript.
 
-Banco PostgreSQL acessado via JDBC
+O objetivo é oferecer uma aplicação completa e bem estruturada, aplicando boas práticas, arquitetura limpa e um CRUD funcional para hóspedes e funcionários.
 
-Frontend em HTML, CSS e JavaScript
+---
 
-O sistema permite gerenciar hóspedes e funcionários com operações completas e arquitetura organizada.
+## Tecnologias Utilizadas
 
-Tecnologias Utilizadas
-Backend
+### Backend
+- Java 17  
+- Spring Boot 3.5  
+- Spring Web (API REST)  
+- Jakarta Validation  
+- JDBC  
+- PostgreSQL  
+- Maven  
 
-Java 17
+### Frontend
+- HTML5  
+- CSS3  
+- JavaScript (Fetch API)  
+- Interface responsiva e organizada  
 
-Spring Boot 3
+---
 
-Spring Web (API REST)
+## Objetivo do Sistema
 
-JDBC
+O sistema gerencia informações de hóspedes e funcionários por meio de operações:
 
-PostgreSQL
+- Criar  
+- Listar  
+- Atualizar  
+- Excluir  
 
-Maven
+Também demonstra:
 
-Frontend
+- Arquitetura MVC  
+- Arquitetura em camadas (Controller → Service → Repository → DB)  
+- Boas práticas de programação  
+- Integração entre front-end e back-end  
+- Aplicação de JDBC com SQL puro  
 
-HTML5
+---
 
-CSS3
+## Arquitetura do Projeto
 
-JavaScript (Fetch API)
+O projeto segue duas abordagens principais:
 
-Interface responsiva
+### MVC
+- **Model:** Pessoa, Hospede, Funcionario  
+- **View:** HTML, CSS e JS  
+- **Controller:** Endpoints REST  
 
-Objetivo do Sistema
+### Arquitetura em Camadas
+Controller → Service → Repository → Database
 
-O sistema realiza operações de CRUD para:
+yaml
+Copiar código
 
-Hóspedes
+- **Controller:** Recebe requisições e retorna respostas REST  
+- **Service:** Contém regras de negócio  
+- **Repository:** Executa SQL com JDBC  
+- **Model:** Representa as entidades  
 
-Funcionários
+Essa estrutura garante desacoplamento e facilita a manutenção.
 
-Operações disponíveis:
+---
 
-Criar
+## Modelagem do Sistema
 
-Listar
+**Classes principais**
 
-Consultar
+### Pessoa (abstrata)
+- cpf  
+- nome  
+- idade  
 
-Atualizar
+### Hospede (extends Pessoa)
+- rg  
+- fidelidade  
 
-Excluir
+### Funcionario (extends Pessoa)
+- funcao  
 
-O projeto também demonstra:
+Essas classes representam o domínio do sistema.
 
-Arquitetura MVC
+---
 
-Arquitetura em camadas
+## DTO – Data Transfer Objects
 
-Boas práticas de programação
+DTOs foram utilizados para padronizar dados de entrada:
 
-Comunicação REST
+- PessoaDTO  
+- HospedeDTO  
+- FuncionarioDTO  
 
-SQL via JDBC
+Vantagens:
+- Dados mais seguros  
+- Validação facilitada  
+- Código mais limpo  
 
-Integração entre front-end e back-end
+A conversão entre DTO e Entity ocorre na camada Service.
 
-Arquitetura do Projeto
+---
 
-O sistema utiliza dois padrões complementares:
+## Controllers (API REST)
 
-MVC
+Os controllers expõem CRUD completo com:
 
-Model — entidades do domínio
+- POST → cadastrar  
+- GET → listar ou consultar  
+- PUT → atualizar  
+- DELETE → excluir  
 
-View — interface em HTML, CSS e JS
+Inclui:
+- Respostas padronizadas (ApiResponse)  
+- Tratamento de erros  
+- Retorno em JSON  
 
-Controller — endpoints REST
+---
 
-Arquitetura em camadas
-Controller → Service → Repository → Banco de Dados
+## Services – Regras de Negócio
 
-Camadas
+A camada Service realiza:
 
-Controller: recebe requisições e retorna JSON
+- Validações  
+- Conversão DTO → Model  
+- Prevenção de CPFs duplicados  
+- Atualização somente dos campos enviados  
+- Verificação antes de alterar ou excluir  
+- Tratamento de exceções do JDBC  
 
-Service: contém regras de negócio e validações
+---
 
-Repository: executa SQL usando JDBC
+## Repository – JDBC + PostgreSQL
 
-Model: representa as classes principais do sistema
+O Repository usa SQL puro com:
 
-Essa estrutura mantém o projeto organizado, escalável e fácil de manter.
+- PreparedStatement  
+- Connection  
+- DriverManager  
 
-Modelagem do Sistema
-Classe abstrata Pessoa
+A escolha do JDBC possibilita maior controle sobre as operações no banco.
 
-cpf
+---
 
-nome
+## Banco de Dados
 
-idade
+### Tabelas
 
-Classe Hospede (extends Pessoa)
+#### hospede
+- cpf (PK)  
+- nome  
+- idade  
+- rg  
+- fidelidade  
 
-rg
+#### funcionario
+- cpf (PK)  
+- nome  
+- idade  
+- funcao  
 
-fidelidade
+Banco utilizado: **PostgreSQL**
 
-Classe Funcionario (extends Pessoa)
+---
 
-funcao
+## Front-End
 
-Essa modelagem representa o domínio básico de um hotel real.
+O frontend foi desenvolvido para ser:
 
-API REST (Controllers)
-Endpoints de Hóspedes
-Método	Rota	Descrição
-GET	/api/hospedes	Listar todos
-GET	/api/hospedes/{cpf}	Consultar por CPF
-POST	/api/hospedes	Cadastrar
-PUT	/api/hospedes/{cpf}	Atualizar
-DELETE	/api/hospedes/{cpf}	Excluir
-Endpoints de Funcionários
-Método	Rota	Descrição
-GET	/api/funcionarios	Listar todos
-GET	/api/funcionarios/{cpf}	Consultar por CPF
-POST	/api/funcionarios	Cadastrar
-PUT	/api/funcionarios/{cpf}	Atualizar
-DELETE	/api/funcionarios/{cpf}	Excluir
-Camada Service
+- Limpo  
+- Intuitivo  
+- Responsivo  
 
-A camada Service é responsável por:
+Funcionalidades:
+- Cadastro  
+- Listagem  
+- Exclusão  
+- Atualização  
 
-Validar dados
+Exemplo da comunicação com o backend:
 
-Verificar duplicidade (ex.: CPF já existente)
-
-Confirmar existência antes de atualizar ou excluir
-
-Tratar exceções vindas do JDBC
-
-Aplicar regras de negócio
-
-Repository — JDBC + PostgreSQL
-
-O banco de dados é acessado por SQL puro utilizando:
-
-DriverManager
-
-PreparedStatement
-
-ResultSet
-
-Essa abordagem reforça o entendimento completo sobre a comunicação direta com o banco.
-
-Banco de Dados
-Tabela hospede
-
-cpf (PK)
-
-nome
-
-idade
-
-rg
-
-fidelidade
-
-Tabela funcionario
-
-cpf (PK)
-
-nome
-
-idade
-
-funcao
-
-Banco utilizado: PostgreSQL.
-
-Front-End
-
-O frontend foi desenvolvido com HTML, CSS e JavaScript, apresentando uma interface limpa, moderna e responsiva.
-
-Funcionalidades implementadas:
-
-Cadastro
-
-Listagem dinâmica
-
-Atualização
-
-Exclusão
-
-Alternância de fidelidade com toggle estilizado
-
-Todas as requisições utilizam Fetch API:
-
+```javascript
 fetch(url, {
-  method,
+  method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(data)
 });
+Endpoints da API
+Hóspedes
+Método	Rota	Descrição
+GET	/api/hospedes	Lista todos
+GET	/api/hospedes/{cpf}	Consulta por CPF
+POST	/api/hospedes	Cadastrar
+PUT	/api/hospedes/{cpf}	Atualizar
+DELETE	/api/hospedes/{cpf}	Excluir
 
-Diagrama da Arquitetura
- FRONT-END (HTML / CSS / JS)
-            |
-            v
-        CONTROLLER
-            |
-            v
-        SERVICE
- Regras de Negócio / Validações
-            |
-            v
-       REPOSITORY
+Funcionários
+Método	Rota	Descrição
+GET	/api/funcionarios	Lista todos
+GET	/api/funcionarios/{cpf}	Consulta por CPF
+POST	/api/funcionarios	Cadastrar
+PUT	/api/funcionarios/{cpf}	Atualizar
+DELETE	/api/funcionarios/{cpf}	Excluir
+
+Diagrama de Arquitetura
+yaml
+Copiar código
+FRONT-END (HTML / CSS / JS)
+        |
+        v
+   CONTROLLERS
+        |
+        v
+     SERVICE
+ Validações / Regras
+        |
+        v
+   REPOSITORY
   JDBC + SQL + PostgreSQL
-            |
-            v
-         DATABASE
-
+        |
+        v
+    DATABASE
 Fluxo de Funcionamento
-
 O usuário executa uma ação no frontend
 
-O JavaScript envia a requisição para o backend
+O JS envia a requisição via Fetch
 
-O Controller recebe e direciona para a camada Service
+O Controller recebe
 
-O Service processa a lógica
+O Service valida e processa
 
-O Repository executa SQL no banco
+O Repository interage com o banco
 
 O Service retorna a resposta
 
-O Controller envia a resposta JSON
+O Controller devolve JSON
 
-A interface atualiza automaticamente
+O frontend atualiza a interface
 
 Como Executar
 Backend
+arduino
+Copiar código
 mvn spring-boot:run
-
 Frontend
+Acesse:
 
-Acesse no navegador:
-
+bash
+Copiar código
 http://localhost:8080/index.html
-
-Banco de Dados
-
-Crie as tabelas no PostgreSQL e ajuste as credenciais em:
-
-src/main/resources/application.properties
