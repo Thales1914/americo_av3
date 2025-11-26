@@ -1,5 +1,9 @@
 package com.seuprojeto.hotel.hotel_api.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "hospede")
 public class Hospede extends Pessoa {
 
     private String rg;
@@ -21,7 +25,9 @@ public class Hospede extends Pessoa {
 
     @Override
     public String toString() {
-        return String.format("CPF: %s, Nome: %s, Idade: %d, RG: %s, Fidelidade: %s",
-                getCpf(), getNome(), getIdade(), rg, fidelidade ? "Ativo" : "Inativo");
+        return String.format(
+                "Hospede{cpf='%s', nome='%s', idade=%d, rg='%s', fidelidade=%s}",
+                cpf, nome, idade, rg, fidelidade
+        );
     }
 }

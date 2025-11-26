@@ -1,8 +1,14 @@
 package com.seuprojeto.hotel.hotel_api.model;
 
+import jakarta.persistence.*;
+
+@MappedSuperclass
 public abstract class Pessoa {
 
+    @Id
+    @Column(nullable = false, unique = true)
     protected String cpf;
+
     protected String nome;
     protected int idade;
 

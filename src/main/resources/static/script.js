@@ -55,9 +55,9 @@ form.addEventListener('submit', async function(event) {
 
     if (entity === 'hospedes') {
         data.rg = document.getElementById('rg').value;
-        data.clienteFidelidade = document.getElementById('fidelidade').checked;
+        data.fidelidade = document.getElementById('fidelidade').checked; // CORRIGIDO
     } else {
-        data.cargo = document.getElementById('funcao').value;
+        data.funcao = document.getElementById('funcao').value; // CORRIGIDO
     }
 
     const response = await fetch(url, {
@@ -141,9 +141,9 @@ updateFormEl.addEventListener('submit', async function(event) {
 
     if (entity === 'hospedes') {
         data.rg = document.getElementById('update-rg').value;
-        data.clienteFidelidade = document.getElementById('update-fidelidade').checked;
+        data.fidelidade = document.getElementById('update-fidelidade').checked; // CORRIGIDO
     } else {
-        data.cargo = document.getElementById('update-funcao').value;
+        data.funcao = document.getElementById('update-funcao').value; // CORRIGIDO
     }
 
     const response = await fetch(`${BASE_URL}/${entity}/${cpf}`, {
