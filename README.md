@@ -182,50 +182,9 @@ Funcionalidades:
 - Exclusão  
 - Atualização  
 
-Exemplo da comunicação com o backend:
+---
 
-```javascript
-fetch(url, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data)
-});
-Endpoints da API
-Hóspedes
-Método	Rota	Descrição
-GET	/api/hospedes	Lista todos
-GET	/api/hospedes/{cpf}	Consulta por CPF
-POST	/api/hospedes	Cadastrar
-PUT	/api/hospedes/{cpf}	Atualizar
-DELETE	/api/hospedes/{cpf}	Excluir
-
-Funcionários
-Método	Rota	Descrição
-GET	/api/funcionarios	Lista todos
-GET	/api/funcionarios/{cpf}	Consulta por CPF
-POST	/api/funcionarios	Cadastrar
-PUT	/api/funcionarios/{cpf}	Atualizar
-DELETE	/api/funcionarios/{cpf}	Excluir
-
-Diagrama de Arquitetura
-yaml
-Copiar código
-FRONT-END (HTML / CSS / JS)
-        |
-        v
-   CONTROLLERS
-        |
-        v
-     SERVICE
- Validações / Regras
-        |
-        v
-   REPOSITORY
-  JDBC + SQL + PostgreSQL
-        |
-        v
-    DATABASE
-Fluxo de Funcionamento
+## Fluxo de Funcionamento
 O usuário executa uma ação no frontend
 
 O JS envia a requisição via Fetch
@@ -242,14 +201,3 @@ O Controller devolve JSON
 
 O frontend atualiza a interface
 
-Como Executar
-Backend
-arduino
-Copiar código
-mvn spring-boot:run
-Frontend
-Acesse:
-
-bash
-Copiar código
-http://localhost:8080/index.html
