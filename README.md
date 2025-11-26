@@ -1,95 +1,104 @@
-# 🏨 Sistema de Hotel — Gestão Completa com Java, Spring Boot e JDBC
+Sistema de Hotel — Gestão Completa com Java, Spring Boot e PostgreSQL
 
-Este projeto consiste no desenvolvimento de um Sistema de Gestão Hoteleira, criado como trabalho acadêmico e aprimorado para uso em portfólio.
-A aplicação integra backend em Java/Spring Boot, banco PostgreSQL via JDBC e frontend interativo com HTML, CSS e JavaScript.
+Este projeto é um Sistema de Gestão Hoteleira, desenvolvido inicialmente como trabalho acadêmico e evoluído para fins de portfólio.
+A aplicação integra:
 
-O objetivo foi construir uma aplicação completa e bem estruturada, aplicando boas práticas, arquitetura limpa e um CRUD totalmente funcional para hóspedes e funcionários.
+Backend com Java + Spring Boot
 
-## **🚀 Tecnologias Utilizadas**
+Banco PostgreSQL acessado via JDBC
 
-**Backend:**
+Frontend em HTML, CSS e JavaScript
 
-- Java 17
+O sistema permite gerenciar hóspedes e funcionários com operações completas e arquitetura organizada.
 
-- Spring Boot 3.5
+Tecnologias Utilizadas
+Backend
 
-- Spring Web (API REST)
+Java 17
 
-- Jakarta Validation
+Spring Boot 3
 
-- JDBC
+Spring Web (API REST)
 
-- PostgreSQL
+JDBC
 
-- Maven
+PostgreSQL
 
- **Frontend:**
+Maven
 
-- HTML5
+Frontend
 
-- CSS3
+HTML5
 
-- JavaScript (Fetch API)
+CSS3
 
-- Interface responsiva e moderna
+JavaScript (Fetch API)
 
-- Estruturas atualizadas e organizadas
+Interface responsiva
 
-## **🎯 Objetivo do Sistema**
+Objetivo do Sistema
 
-O sistema tem como meta gerenciar informações de hóspedes e funcionários através de operações completas:
+O sistema realiza operações de CRUD para:
 
-- Criar
+Hóspedes
 
-- Listar
+Funcionários
 
-- Atualizar
+Operações disponíveis:
 
-- Excluir
+Criar
 
-Também demonstra domínio de:
+Listar
 
-- Arquitetura MVC
+Consultar
 
-- Arquitetura em camadas (Controller → Service → Repository → DB)
+Atualizar
 
-- Boas práticas de programação
+Excluir
 
-- Integração front-end + back-end
+O projeto também demonstra:
 
-- Uso de DTOs
+Arquitetura MVC
 
-- Aplicação de JDBC com SQL puro
+Arquitetura em camadas
 
-## **🧱 Arquitetura do Projeto**
+Boas práticas de programação
 
-O projeto foi construído seguindo duas abordagens combinadas:
+Comunicação REST
 
-✅ MVC
+SQL via JDBC
 
-Model — Entidades (Pessoa, Hóspede, Funcionário)
+Integração entre front-end e back-end
 
-View — Frontend com HTML, CSS e JS
+Arquitetura do Projeto
 
-Controller — Endpoints REST
+O sistema utiliza dois padrões complementares:
 
-✅ Arquitetura em Camadas
-Controller → Service → Repository → Database
+MVC
 
+Model — entidades do domínio
 
-Controller: recebe requisições e retorna as respostas REST
+View — interface em HTML, CSS e JS
 
-Service: contém as regras de negócio e validações
+Controller — endpoints REST
+
+Arquitetura em camadas
+Controller → Service → Repository → Banco de Dados
+
+Camadas
+
+Controller: recebe requisições e retorna JSON
+
+Service: contém regras de negócio e validações
 
 Repository: executa SQL usando JDBC
 
-Model: representa as entidades da aplicação
+Model: representa as classes principais do sistema
 
-Essa organização garante desacoplamento, clareza e escalabilidade.
+Essa estrutura mantém o projeto organizado, escalável e fácil de manter.
 
-## 🧩 Modelagem do Sistema
-Classes principais
-Pessoa (abstrata)
+Modelagem do Sistema
+Classe abstrata Pessoa
 
 cpf
 
@@ -97,93 +106,61 @@ nome
 
 idade
 
-Hospede (extends Pessoa)
+Classe Hospede (extends Pessoa)
 
 rg
 
 fidelidade
 
-Funcionario (extends Pessoa)
+Classe Funcionario (extends Pessoa)
 
 funcao
 
-Essas estruturas representam o domínio básico de um sistema hoteleiro.
+Essa modelagem representa o domínio básico de um hotel real.
 
-## 📦 DTO – Data Transfer Objects
+API REST (Controllers)
+Endpoints de Hóspedes
+Método	Rota	Descrição
+GET	/api/hospedes	Listar todos
+GET	/api/hospedes/{cpf}	Consultar por CPF
+POST	/api/hospedes	Cadastrar
+PUT	/api/hospedes/{cpf}	Atualizar
+DELETE	/api/hospedes/{cpf}	Excluir
+Endpoints de Funcionários
+Método	Rota	Descrição
+GET	/api/funcionarios	Listar todos
+GET	/api/funcionarios/{cpf}	Consultar por CPF
+POST	/api/funcionarios	Cadastrar
+PUT	/api/funcionarios/{cpf}	Atualizar
+DELETE	/api/funcionarios/{cpf}	Excluir
+Camada Service
 
-Foram implementados DTOs para evitar exposição direta das entidades internas:
+A camada Service é responsável por:
 
-PessoaDTO
+Validar dados
 
-HospedeDTO
+Verificar duplicidade (ex.: CPF já existente)
 
-FuncionarioDTO
+Confirmar existência antes de atualizar ou excluir
 
-Benefícios:
+Tratar exceções vindas do JDBC
 
-Mais segurança
+Aplicar regras de negócio
 
-Padronização dos dados recebidos
+Repository — JDBC + PostgreSQL
 
-Facilidade de validação
-
-Código mais limpo e organizado
-
-A conversão DTO ↔ Entity é feita na camada Service.
-
-## 🌐 Controllers (API REST)
-
-Os controllers expõem métodos CRUD completos:
-
-Métodos disponíveis
-
-POST — cadastrar
-
-GET — consultar ou listar
-
-PUT — atualizar
-
-DELETE — excluir
-
-Com:
-
-Respostas padronizadas (ApiResponse)
-
-Tratamento de erros
-
-Retorno em JSON
-
-## 🧠 Services – Regras de Negócio
-
-A camada Service realiza:
-
-Validações (ex.: não cadastrar menor de 16 anos como funcionário)
-
-Conversão DTO → Model
-
-Prevenção de CPFs duplicados
-
-Atualização apenas dos campos enviados
-
-Verificação de existência antes de alterações ou remoções
-
-Tratamento de exceções
-
-🗄 Repository – JDBC + PostgreSQL
-
-O acesso ao banco é feito via SQL puro, usando:
-
-PreparedStatement
-
-Connection
+O banco de dados é acessado por SQL puro utilizando:
 
 DriverManager
 
-Essa abordagem foi mantida para reforçar o domínio da base da comunicação com bancos de dados e evitar abstrações excessivas.
+PreparedStatement
 
-## 🛢 Banco de Dados
-Tabelas
-hospede
+ResultSet
+
+Essa abordagem reforça o entendimento completo sobre a comunicação direta com o banco.
+
+Banco de Dados
+Tabela hospede
 
 cpf (PK)
 
@@ -195,7 +172,7 @@ rg
 
 fidelidade
 
-funcionario
+Tabela funcionario
 
 cpf (PK)
 
@@ -205,35 +182,25 @@ idade
 
 funcao
 
-Banco utilizado: PostgreSQL
+Banco utilizado: PostgreSQL.
 
-## 🎨 Front-End
+Front-End
 
-O frontend foi reformulado para entregar uma interface:
+O frontend foi desenvolvido com HTML, CSS e JavaScript, apresentando uma interface limpa, moderna e responsiva.
 
-limpa
-
-intuitiva
-
-moderna
-
-responsiva
-
-Funcionalidades:
+Funcionalidades implementadas:
 
 Cadastro
 
-Listagem
+Listagem dinâmica
+
+Atualização
 
 Exclusão
 
-Atualização (PUT)
+Alternância de fidelidade com toggle estilizado
 
-Toggle moderno para fidelidade
-
-Código HTML, CSS e JS organizados
-
-A comunicação com o backend é feita pela Fetch API:
+Todas as requisições utilizam Fetch API:
 
 fetch(url, {
   method,
@@ -241,88 +208,53 @@ fetch(url, {
   body: JSON.stringify(data)
 });
 
-🔗 Endpoints da API
-Hóspedes
-Método	Rota	Descrição
-GET	/api/hospedes	Lista todos
-GET	/api/hospedes/{cpf}	Consulta por CPF
-POST	/api/hospedes	Cadastrar
-PUT	/api/hospedes/{cpf}	Atualizar
-DELETE	/api/hospedes/{cpf}	Excluir
-Funcionários
-Método	Rota	Descrição
-GET	/api/funcionarios	Lista todos
-GET	/api/funcionarios/{cpf}	Consulta por CPF
-POST	/api/funcionarios	Cadastrar
-PUT	/api/funcionarios/{cpf}	Atualizar
-DELETE	/api/funcionarios/{cpf}	Excluir
-🧭 Diagrama de Arquitetura
-     FRONT-END (HTML / CSS / JS)
-                 |
-                 v
-           CONTROLLERS
-                 |
-                 v
-              SERVICE
-      Validações / DTO / Regras
-                 |
-                 v
-            REPOSITORY
-      JDBC + SQL + PostgreSQL
-                 |
-                 v
-             DATABASE
+Diagrama da Arquitetura
+ FRONT-END (HTML / CSS / JS)
+            |
+            v
+        CONTROLLER
+            |
+            v
+        SERVICE
+ Regras de Negócio / Validações
+            |
+            v
+       REPOSITORY
+  JDBC + SQL + PostgreSQL
+            |
+            v
+         DATABASE
 
-## 🔁 Fluxo de Funcionamento
+Fluxo de Funcionamento
 
-Usuário executa ação no frontend
+O usuário executa uma ação no frontend
 
-JS envia requisição via Fetch
+O JavaScript envia a requisição para o backend
 
-Controller recebe
+O Controller recebe e direciona para a camada Service
 
-Service valida
+O Service processa a lógica
 
-Repository manipula o banco
+O Repository executa SQL no banco
 
-Service retorna resposta
+O Service retorna a resposta
 
-Controller devolve JSON
+O Controller envia a resposta JSON
 
-Frontend atualiza interface
+A interface atualiza automaticamente
 
-🛠 Como Executar
+Como Executar
 Backend
 mvn spring-boot:run
 
 Frontend
 
-Acessar:
+Acesse no navegador:
 
 http://localhost:8080/index.html
 
 Banco de Dados
 
-Criar as tabelas no PostgreSQL e ajustar as credenciais no application.properties.
+Crie as tabelas no PostgreSQL e ajuste as credenciais em:
 
-## ✅ Conclusão
-
-Este projeto demonstra habilidades em:
-
-- Java + Spring Boot
-
-- API REST
-
-- JDBC e SQL
-
-- Arquitetura MVC
-
-- Arquitetura em camadas
-
-- Padrões de projeto
-
-- Integração completa front-end + back-end
-
-- Criação de interfaces modernas e funcionais
-
-O sistema está completo, funcional e estruturado com boas práticas, representando bem a evolução técnica e profissional do desenvolvimento.
+src/main/resources/application.properties
