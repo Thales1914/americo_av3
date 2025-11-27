@@ -14,13 +14,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                                "https://hotel-frontend-kxfpqlvps-thales-projects-d8c81c16.vercel.app",
-                                "http://localhost:5500",
-                                "http://localhost"
-                        )
-                        .allowedMethods("*")
-                        .allowedHeaders("*");
+                        .allowedOriginPatterns("*")   // permite QUALQUER domínio (seguro para API pública)
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowCredentials(false);
             }
         };
     }
